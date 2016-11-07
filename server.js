@@ -1,6 +1,8 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const homeRoute = require('./routes/index');
+const tasksRoute = require('./routes/tasks');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,9 +20,8 @@ app.use(bodyParser.json());
 // set up some logging
 app.use(logger(isDev ? 'dev' : 'common'));
 
-// // bring in the task routes
-// app.use('/tasks', require('/routes/tasks'));
-// app.use('/', require('/routes/index'));
+app.use('/', homeRoute);
+app.use('/tasks', tasksRoute);
 
 // generic error handler
 app.use((err, req, res, next) => {
